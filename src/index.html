@@ -7,7 +7,7 @@
     <script type="module" src="./js/main.js"></script>
   </head>
   <body class="bg-dark-subtle">
-    <div class="container py-4 px-3 mx-auto my-5 text-center" style="max-width: 700px">
+    <div class="container py-4 px-3 mx-auto my-5 text-center" style="max-width: 600px">
       <h1 class="text-center text-danger display-5">Pomodoro Timer</h1>
 
       <div class="container mt-5 mb-5">
@@ -18,20 +18,20 @@
               <div class="col-5">
                 <button
                   id="session-decrement"
-                  class="btn btn-outline-secondary btn-sm ms-3"
-                  style="width: 50px"
+                  class="btn btn-outline-secondary btn-sm ms-5 text-dark"
+                  style="width: 30px"
                 >
-                  Less
+                  -
                 </button>
               </div>
               <div class="col-2"><h3 id="session-length">25</h3></div>
               <div class="col-5">
                 <button
                   id="session-increment"
-                  class="btn btn-outline-secondary btn-sm me-3"
-                  style="width: 50px"
+                  class="btn btn-outline-secondary btn-sm me-5 text-dark"
+                  style="width: 30px"
                 >
-                  More
+                  +
                 </button>
               </div>
             </div>
@@ -43,20 +43,20 @@
               <div class="col-5">
                 <button
                   id="break-decrement"
-                  class="btn btn-outline-secondary btn-sm ms-4"
-                  style="width: 50px"
+                  class="btn btn-outline-secondary btn-sm ms-5 text-dark"
+                  style="width: 30px"
                 >
-                  Less
+                  -
                 </button>
               </div>
               <div class="col-2"><h3 id="break-length">5</h3></div>
               <div class="col-5">
                 <button
                   id="break-increment"
-                  class="btn btn-outline-secondary btn-sm me-4"
-                  style="width: 50px"
+                  class="btn btn-outline-secondary btn-sm me-5 text-dark"
+                  style="width: 30px"
                 >
-                  More
+                  +
                 </button>
               </div>
             </div>
@@ -77,6 +77,8 @@
             id="start_stop"
             style="width: 100px"
           ></button>
+          <audio id="beep" preload="auto" src="audio-clips/honk-honk.mp3"></audio>
+          <audio id="click" preload="auto" src="audio-clips/cool-click.wav"></audio>
         </div>
       </div>
     </div>
