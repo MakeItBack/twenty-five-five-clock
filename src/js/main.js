@@ -30,6 +30,8 @@ const clickAudio = document.getElementById("click");
 clickAudio.volume = 0.1;
 
 function initialise() {
+  clearInterval(myInterval);
+  enableAdjustment();
   sessionMinutes = 25;
   breakMinutes = 5;
   inSession = true;
@@ -46,35 +48,49 @@ function initialise() {
 }
 initialise();
 
-// TODO: change button click events to press not release
+function editTimer(timerName, change) {
+  clickAudio.play();
+  clearInterval(myInterval);
+  timerRunning = false;
+  myInterval = null;
+  // adjust timer value
+  if (timerName === "session") {
+    change === "increment" ? sessionMinutes++ : sessionMinutes--;
+    sessionLength.textContent = sessionMinutes;
+    if (inSession) {
+      secondsRemaining = 60 * sessionMinutes;
+      display.textContent = formatTime(secondsRemaining);
+    }
+  }
+  if (timerName === "break") {
+    change === "increment" ? breakMinutes++ : breakMinutes--;
+    breakLength.textContent = breakMinutes;
+    if (!inSession) {
+      secondsRemaining = 60 * breakMinutes;
+      display.textContent = formatTime(secondsRemaining);
+    }
+  }
+}
 
 // Add event listeners to the buttons
-incrementBreak.addEventListener("click", () => {
+incrementBreak.addEventListener("mousedown", () => {
   if (breakMinutes < 60) {
-    clickAudio.play();
-    breakMinutes++;
-    breakLength.textContent = breakMinutes;
+    editTimer("break", "increment");
   }
 });
-decrementBreak.addEventListener("click", () => {
+decrementBreak.addEventListener("mousedown", () => {
   if (breakMinutes > 1) {
-    clickAudio.play();
-    breakMinutes--;
-    breakLength.textContent = breakMinutes;
+    editTimer("break", "decrement");
   }
 });
-incrementSession.addEventListener("click", () => {
+incrementSession.addEventListener("mousedown", () => {
   if (sessionMinutes < 60) {
-    clickAudio.play();
-    sessionMinutes++;
-    sessionLength.textContent = sessionMinutes;
+    editTimer("session", "increment");
   }
 });
-decrementSession.addEventListener("click", () => {
+decrementSession.addEventListener("mousedown", () => {
   if (sessionMinutes > 1) {
-    clickAudio.play();
-    sessionMinutes--;
-    sessionLength.textContent = sessionMinutes;
+    editTimer("session", "decrement");
   }
 });
 function disableAdjustment() {
@@ -98,10 +114,8 @@ function resetSecondsRemaining() {
 }
 
 function resetTimer() {
-  // reset
+  // reset all settings to initial values
   initialise();
-  // Clear the interval (stop the timer)
-  clearInterval(myInterval);
   // Stop the sound (if it is playing) and rewind it to the beginning
   honkAudio.pause();
   honkAudio.load();
