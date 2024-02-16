@@ -49,7 +49,6 @@ function initialise() {
 initialise();
 
 function editTimer(timerName, change) {
-  clickAudio.play();
   clearInterval(myInterval);
   timerRunning = false;
   myInterval = null;
@@ -73,23 +72,23 @@ function editTimer(timerName, change) {
 }
 
 // Add event listeners to the buttons
-incrementBreak.addEventListener("mousedown", () => {
-  if (breakMinutes < 60) {
+incrementBreak.addEventListener("click", () => {
+  if (breakMinutes < 60 && !timerRunning) {
     editTimer("break", "increment");
   }
 });
-decrementBreak.addEventListener("mousedown", () => {
-  if (breakMinutes > 1) {
+decrementBreak.addEventListener("click", () => {
+  if (breakMinutes > 1 && !timerRunning) {
     editTimer("break", "decrement");
   }
 });
-incrementSession.addEventListener("mousedown", () => {
-  if (sessionMinutes < 60) {
+incrementSession.addEventListener("click", () => {
+  if (sessionMinutes < 60 && !timerRunning) {
     editTimer("session", "increment");
   }
 });
-decrementSession.addEventListener("mousedown", () => {
-  if (sessionMinutes > 1) {
+decrementSession.addEventListener("click", () => {
+  if (sessionMinutes > 1 && !timerRunning) {
     editTimer("session", "decrement");
   }
 });
@@ -107,6 +106,19 @@ function enableAdjustment() {
 }
 startButton.addEventListener("click", startStopTimer);
 resetButton.addEventListener("click", resetTimer);
+// Button event listeners for button clicks
+incrementBreak.addEventListener("mousedown", () => {
+  clickAudio.play();
+});
+decrementBreak.addEventListener("mousedown", () => {
+  clickAudio.play();
+});
+incrementSession.addEventListener("mousedown", () => {
+  clickAudio.play();
+});
+decrementSession.addEventListener("mousedown", () => {
+  clickAudio.play();
+});
 
 // Define a function to reset the timer seconds to match
 function resetSecondsRemaining() {
@@ -148,11 +160,15 @@ function runTimer() {
   timerName.textContent = inSession ? "Session" : "Break";
   // Update the timer digits
   display.textContent = formatTime(secondsRemaining);
-  // Decrement the time remaining by one second
-  secondsRemaining--;
-  // When timer reaches zero do all the things - play sound, reset timer, and start new timer
-  if (secondsRemaining < 0) {
+  if (secondsRemaining <= 0) {
+    // When timer reaches zero do all the things - play sound, reset timer, and start new timer
     timesUp();
+    return;
+  } else {
+    // Decrement the time remaining by one second
+    secondsRemaining--;
+    // Update the timer digits
+    display.textContent = formatTime(secondsRemaining);
   }
 }
 
@@ -167,6 +183,10 @@ function timesUp() {
   inSession = !inSession;
   // Set the duration to the next timer (secondsRemaining)
   secondsRemaining = resetSecondsRemaining();
+  // Update the timer digits
+  display.textContent = formatTime(secondsRemaining);
+  // Update the timer name
+  timerName.textContent = inSession ? "Session" : "Break";
   // Start the next timer
   myInterval = setInterval(runTimer, 1000);
 }
