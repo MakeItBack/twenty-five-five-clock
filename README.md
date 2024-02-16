@@ -36,7 +36,7 @@ This project is written in vanilla Javascript using [Vite](https://vitejs.dev/) 
 
 ---
 
-![Pomodoro screenshot](public/screenshot.png)
+![Pomodoro screenshot](src/public/images/pomodoro.gif)
 
 ---
 
