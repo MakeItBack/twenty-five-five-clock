@@ -11,12 +11,12 @@
     <audio id="beep" preload="auto" src="audio-clips/honk-honk.mp3"></audio>
     <audio id="click" preload="auto" src="audio-clips/cool-click.wav"></audio>
     <div class="container py-4 px-3 mx-auto my-5 text-center" style="max-width: 600px">
-      <h1 class="text-center text-danger display-5">Pomodoro Timer</h1>
+      <h1 class="text-center text-danger display-2">Pomodoro Timer</h1>
 
       <div class="container mt-5 mb-5">
         <div class="row">
           <div class="col border rounded-5 p-3 me-2 bg-light">
-            <h3 id="session-label">Session Length</h3>
+            <h4 id="session-label">Session Length</h4>
             <div class="row">
               <div class="col-5">
                 <button
@@ -43,7 +43,7 @@
           </div>
 
           <div class="col border rounded-5 p-3 ms-2 bg-light">
-            <h3 id="break-label">Break Length</h3>
+            <h4 id="break-label" class="text-success-emphasis">Break Length</h4>
             <div class="row">
               <div class="col-5">
                 <button
@@ -55,7 +55,7 @@
                   <i class="bi bi-dash text-dark"></i>
                 </button>
               </div>
-              <div class="col-2"><h3 id="break-length">5</h3></div>
+              <div class="col-2"><h3 id="break-length" class="text-success-emphasis">5</h3></div>
               <div class="col-5">
                 <button
                   type="button"
@@ -72,7 +72,7 @@
       </div>
 
       <div class="p-5 border rounded-5 bg-secondary">
-        <h3><span id="timer-label"></span> Remaining</h3>
+        <h4 class="text-white-50"><span id="timer-label"></span> Remaining</h4>
         <p class="display-1 text-light" id="time-left">25:00</p>
         <div class="btn-group" role="group" aria-label="timer controls">
           <button type="button" class="btn btn-info btn-lg" id="reset" style="width: 100px">

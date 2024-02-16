@@ -41,6 +41,9 @@ function initialise() {
   timerName.textContent = inSession ? "Session" : "Break";
   sessionLength.textContent = sessionMinutes;
   breakLength.textContent = breakMinutes;
+  display.classList.remove("text-success");
+  display.classList.remove("text-warning");
+  display.classList.add("text-light");
   display.textContent = formatTime(secondsRemaining);
   startButton.textContent = timerRunning ? "Stop" : "Start";
   clickAudio.load();
@@ -156,6 +159,19 @@ function formatTime(totalSeconds) {
 }
 
 function runTimer() {
+  if (!inSession) {
+    display.classList.remove("text-light");
+    display.classList.remove("text-warning");
+    display.classList.add("text-success");
+  } else if (inSession && secondsRemaining < 32) {
+    display.classList.remove("text-light");
+    display.classList.remove("text-success");
+    display.classList.add("text-warning");
+  } else {
+    display.classList.remove("text-success");
+    display.classList.remove("text-warning");
+    display.classList.add("text-light");
+  }
   // Update the timer name
   timerName.textContent = inSession ? "Session" : "Break";
   // Update the timer digits
@@ -184,6 +200,9 @@ function timesUp() {
   // Set the duration to the next timer (secondsRemaining)
   secondsRemaining = resetSecondsRemaining();
   // Update the timer digits
+  display.classList.remove("text-warning");
+  display.classList.remove("text-success");
+  display.classList.add(inSession ? "text-light" : "text-success");
   display.textContent = formatTime(secondsRemaining);
   // Update the timer name
   timerName.textContent = inSession ? "Session" : "Break";
